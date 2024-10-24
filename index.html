@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chọn Đề Thi Ngẫu Nhiên</title>
+    <title>Chọn Đề Thi ITI101 Ngẫu Nhiên</title>
 </head>
 <body>
-    <h1>Chọn Đề Thi Ngẫu Nhiên</h1>
+    <h1>Chọn Đề Thi ITI101 Ngẫu Nhiên</h1>
 
     <label for="studentName">Nhập tên học sinh:</label>
     <input type="text" id="studentName" placeholder="Tên học sinh"><br><br>
 
     <button onclick="chonDeThi()">Bấm để chọn đề thi</button>
     <p id="ketQua"></p>
-    <button onclick="luuKetQua()">Tải kết quả</button>
 
     <script>
-        // Lưu trữ danh sách học sinh và đề thi
         var daBam = [];
-        var ketQuaLuu = [];
-
         function chonDeThi() {
             var tenHocSinh = document.getElementById("studentName").value;
-
-            // Kiểm tra nếu tên học sinh đã được chọn
             if (tenHocSinh === "") {
                 document.getElementById("ketQua").innerHTML = "Vui lòng nhập tên học sinh!";
                 return;
@@ -35,18 +29,28 @@
             var soDeThi = Math.floor(Math.random() * 11) + 1;
             daBam.push(tenHocSinh);
 
-            var ketQua = "Học sinh " + tenHocSinh + " sẽ làm đề số: " + soDeThi;
-            ketQuaLuu.push(ketQua);
+            var now = new Date();
+            var timeString = now.toLocaleString(); 
+            var deviceInfo = navigator.userAgent;
 
-            document.getElementById("ketQua").innerHTML = ketQua;
-        }
+            // Gửi dữ liệu đến Google Sheets
+            var data = {
+                studentName: tenHocSinh,
+                examNumber: soDeThi,
+                timestamp: timeString,
+                device: deviceInfo
+            };
 
-        function luuKetQua() {
-            var blob = new Blob([ketQuaLuu.join("\n")], { type: "text/plain;charset=utf-8" });
-            var link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = "ketqua.txt";
-            link.click();
+            fetch("YOUR_GOOGLE_SCRIPT_URL_HERE", {
+                method: "POST",
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    document.getElementById("ketQua").innerHTML = `Học sinh ${tenHocSinh} sẽ làm đề số: ${soDeThi}. Dữ liệu đã được lưu.`;
+                } else {
+                    document.getElementById("ketQua").innerHTML = "Lỗi khi lưu dữ liệu.";
+                }
+            });
         }
     </script>
 </body>
