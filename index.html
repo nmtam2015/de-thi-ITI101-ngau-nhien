@@ -11,10 +11,13 @@
 
     <button onclick="chonDeThi()">Bấm để chọn đề thi</button>
     <p id="ketQua"></p>
+    <p id="loading" style="display:none;">Đang xử lý, vui lòng chờ...</p>
 
     <script>
         var daBam = [];
         function chonDeThi() {
+                document.getElementById("loading").style.display = "block";
+
             var tenHocSinh = document.getElementById("studentName").value;
             if (tenHocSinh === "") {
                 document.getElementById("ketQua").innerHTML = "Vui lòng nhập tên học sinh!";
@@ -50,15 +53,16 @@
                 body: JSON.stringify(data)
             })
             .then(response => {
+                document.getElementById("loading").style.display = "none";
                 document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
             })
             .then(result => {
+                document.getElementById("loading").style.display = "none";
                 document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-
         }
     </script>
 </body>
