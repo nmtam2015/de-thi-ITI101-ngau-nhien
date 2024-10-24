@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chọn Đề Thi Ngẫu Nhiên</title>
+</head>
+<body>
+    <h1>Chọn Đề Thi Ngẫu Nhiên</h1>
+
+    <label for="studentName">Nhập tên học sinh:</label>
+    <input type="text" id="studentName" placeholder="Tên học sinh"><br><br>
+
+    <button onclick="chonDeThi()">Bấm để chọn đề thi</button>
+    <p id="ketQua"></p>
+    <button onclick="luuKetQua()">Tải kết quả</button>
+
+    <script>
+        // Lưu trữ danh sách học sinh và đề thi
+        var daBam = [];
+        var ketQuaLuu = [];
+
+        function chonDeThi() {
+            var tenHocSinh = document.getElementById("studentName").value;
+
+            // Kiểm tra nếu tên học sinh đã được chọn
+            if (tenHocSinh === "") {
+                document.getElementById("ketQua").innerHTML = "Vui lòng nhập tên học sinh!";
+                return;
+            }
+
+            if (daBam.includes(tenHocSinh)) {
+                document.getElementById("ketQua").innerHTML = "Học sinh " + tenHocSinh + " đã bấm chọn đề thi.";
+                return;
+            }
+
+            var soDeThi = Math.floor(Math.random() * 11) + 1;
+            daBam.push(tenHocSinh);
+
+            var ketQua = "Học sinh " + tenHocSinh + " sẽ làm đề số: " + soDeThi;
+            ketQuaLuu.push(ketQua);
+
+            document.getElementById("ketQua").innerHTML = ketQua;
+        }
+
+        function luuKetQua() {
+            var blob = new Blob([ketQuaLuu.join("\n")], { type: "text/plain;charset=utf-8" });
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "ketqua.txt";
+            link.click();
+        }
+    </script>
+</body>
+</html>
