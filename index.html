@@ -41,17 +41,28 @@
                 device: deviceInfo
             };
 
-            fetch("https://script.google.com/macros/s/AKfycbzHYZJBrOZ1LkSA7dpQXs0U7V7GtiVLrAOZUB_jpeC5gx6jLYG2ptqCYd3t1rGBFJZT1w/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbyRc9uNrx4O8LO3eRE7baX_1hMLpGBtQyQPoBEEJjCoDFclf7NoKnDkySkz2EecJkRkcQ/exec", {
                 method: "POST",
-                    mode: "no-cors",  // Thêm dòng này
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                mode: "no-cors",
                 body: JSON.stringify(data)
-            }).then(response => {
-                if (response.ok) {
-                    document.getElementById("ketQua").innerHTML = `Học sinh ${tenHocSinh} sẽ làm đề số: ${soDeThi}. Dữ liệu đã được lưu.`;
-                } else {
-                    document.getElementById("ketQua").innerHTML = "Lỗi khi lưu dữ liệu.";
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Lỗi khi lưu dữ liệu.');
                 }
+                return response.text();
+            })
+            .then(result => {
+                document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
+            })
+            .catch(error => {
+                document.getElementById("ketQua").innerHTML = "Lỗi khi lưu dữ liệu.";
+                console.error('Error:', error);
             });
+
         }
     </script>
 </body>
