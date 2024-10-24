@@ -54,12 +54,20 @@
             })
             .then(response => {
                 document.getElementById("loading").style.display = "none";
-                document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
-            })
+        var sheetLink = "https://docs.google.com/spreadsheets/d/1v_rcxicG07D-AI24koY1b-N4T3rGV32g-ok09tAyMjw/edit?gid=0#gid=0"; // Thay YOUR_SHEET_ID bằng ID của Google Sheets
+        document.getElementById("ketQua").innerHTML = `
+            Dữ liệu đã được lưu thành công. 
+            <br>
+            Xem kết quả tại: <a href="${sheetLink}" target="_blank">${sheetLink}</a>
+        `;            })
             .then(result => {
                 document.getElementById("loading").style.display = "none";
-                document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
-            })
+        var sheetLink = "https://docs.google.com/spreadsheets/d/1v_rcxicG07D-AI24koY1b-N4T3rGV32g-ok09tAyMjw/edit?gid=0#gid=0"; // Thay YOUR_SHEET_ID bằng ID của Google Sheets
+        document.getElementById("ketQua").innerHTML = `
+            Dữ liệu đã được lưu thành công. 
+            <br>
+            Xem kết quả tại: <a href="${sheetLink}" target="_blank">${sheetLink}</a>
+        `;            })
             .catch(error => {
                 console.error('Error:', error);
             });
