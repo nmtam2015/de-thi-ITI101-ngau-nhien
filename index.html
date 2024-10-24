@@ -43,6 +43,7 @@
 
             fetch("https://script.google.com/macros/s/AKfycbwWoRWltFeSz0UF3dtkT_hmWJ6Me71NoNIsR1H-8fppQsutEREmR3B_QaaZwD_8qu_93Q/exec", {
                 method: "POST",
+                    mode: "no-cors",  // Thêm dòng này
                 body: JSON.stringify(data)
             }).then(response => {
                 if (response.ok) {
