@@ -50,16 +50,12 @@
                 body: JSON.stringify(data)
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Lỗi khi lưu dữ liệu.');
-                }
-                return response.text();
+                document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
             })
             .then(result => {
                 document.getElementById("ketQua").innerHTML = "Dữ liệu đã được lưu thành công.";
             })
             .catch(error => {
-                document.getElementById("ketQua").innerHTML = "Lỗi khi lưu dữ liệu.";
                 console.error('Error:', error);
             });
 
